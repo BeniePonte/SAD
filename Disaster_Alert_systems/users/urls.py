@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views  # This imports all views, allowing you to reference them like `views.register`
-
+from .views import register, login_view
 app_name = 'users'
 
 urlpatterns = [

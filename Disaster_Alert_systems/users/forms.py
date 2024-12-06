@@ -1,7 +1,10 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from captcha.fields import CaptchaField
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from captcha.fields import CaptchaField  # Ensure this is imported correctly
+
+class LoginForm(AuthenticationForm):
+    captcha = CaptchaField()  # Add CAPTCHA to the login form
 
 class UserRegisterForm(UserCreationForm):
     phone = forms.CharField(max_length=15, required=False)
@@ -16,11 +19,7 @@ class UserRegisterForm(UserCreationForm):
         ],
         required=False,
     )
-    captcha = CaptchaField()  # Add CAPTCHA field
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'phone', 'location', 'password1', 'password2', 'captcha']
-
-class LoginForm(AuthenticationForm):
-    captcha = CaptchaField()  # Add CAPTCHA field here
+        fields = ['username', 'email', 'phone', 'location', 'password1', 'password2']

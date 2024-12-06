@@ -128,13 +128,15 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"] 
 
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-RECAPTCHA_PUBLIC_KEY = '6LdgoZIqAAAAAA0Mqc5imxYluae89010Z1pNO6VS'
-RECAPTCHA_PRIVATE_KEY = '6LdgoZIqAAAAACm5KXxlZHjwdsZrDBnnNGg2IllL'
+
+RECAPTCHA_PUBLIC_KEY = '6LfP7pIqAAAAAP1RjxFxQkql927DxucwrJ69972v'
+RECAPTCHA_PRIVATE_KEY = '6LfP7pIqAAAAAK1AkOS8NiZPCmugSVxsc0V0-1p7'
 
 
 

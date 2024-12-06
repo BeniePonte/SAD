@@ -3,12 +3,12 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     LOCATION_CHOICES = [
-            ('girne', 'Girne'),
-            ('lefkoşa', 'Lefkoşa'),
-            ('lefke', 'Lefke'),
-            ('iskele', 'İskele'),
-            ('gazimağusa', 'Gazimağusa'),
-            ('güzelyurt', 'Güzelyurt'),
+        ('girne', 'Girne'),
+        ('lefkoşa', 'Lefkoşa'),
+        ('lefke', 'Lefke'),
+        ('iskele', 'İskele'),
+        ('gazimağusa', 'Gazimağusa'),
+        ('güzelyurt', 'Güzelyurt'),
     ]
     
     user = models.OneToOneField(User, on_delete=models.CASCADE)
