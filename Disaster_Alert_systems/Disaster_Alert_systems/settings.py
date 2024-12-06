@@ -142,7 +142,7 @@ RECAPTCHA_PRIVATE_KEY = '6LfP7pIqAAAAAK1AkOS8NiZPCmugSVxsc0V0-1p7'
 
 # settings.py
 LOGIN_REDIRECT_URL = 'home'  # Redirect to home page after login
-LOGOUT_REDIRECT_URL = 'login'  # Redirect to home page after logout
+LOGOUT_REDIRECT_URL = 'users:landing'  # Redirect to the landing page after logout
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -154,3 +154,24 @@ EMAIL_HOST_PASSWORD = 'Bpo6815krm'
 
 # Default "from" email for Django email functionality
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+
+# Use the database to store session data (default in Django)
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+# Set the session cookie to be secure (HTTPS only)
+SESSION_COOKIE_SECURE = True
+
+# Prevent JavaScript access to the session cookie
+SESSION_COOKIE_HTTPONLY = True
+
+# Set the session cookie to have the SameSite attribute
+SESSION_COOKIE_SAMESITE = 'Lax'
+
+# Set a session timeout (in seconds)
+SESSION_COOKIE_AGE = 1800  # 30 minutes
+
+# Enable session expiry when the user closes the browser
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+

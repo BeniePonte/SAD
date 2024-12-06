@@ -4,6 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from .forms import UserRegisterForm, LoginForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.templatetags.static import static
 
 def register(request):
     if request.method == 'POST':
@@ -11,7 +12,7 @@ def register(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Account created successfully!')
-            return redirect('users:login')  # Redirect to the login page after successful registration
+            return redirect('users:login')
         else:
             for field, errors in form.errors.items():
                 messages.error(request, f"{field.capitalize()}: {', '.join(errors)}")
@@ -29,7 +30,7 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('users:home')  # Redirect to the home page after successful login
+                return redirect('users:home')
             else:
                 messages.error(request, 'Invalid username or password.')
     else:
@@ -37,17 +38,13 @@ def login_view(request):
 
     return render(request, 'registration/login.html', {'form': form})
 
+@login_required
 def home(request):
     return render(request, 'home.html')
 
 def logout_view(request):
     logout(request)
-    return redirect('users:login')  # Redirect to the login page after logout
+    return redirect('users:login')
 
-def my_view(request):
-    background_image_url = static('alert.webp')
-    return render(request, 'my_template.html', {'background_image_url': background_image_url})
-
-@login_required
-def home(request):
-    return render(request, 'home.html')
+def landing_page(request):
+    return render(request, 'landing.html')  # Assurez-vous que ce fichier existe dans votre répertoire de templates
