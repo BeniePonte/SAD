@@ -1,0 +1,44 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <div class="profile-container">
+        <h2>Edit Your Profile</h2>
+
+        <!-- Display success or error messages -->
+        {% if messages %}
+            <div id="success-message" class="alert alert-success">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="POST" action="{% url 'users:edit_profile' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" value="{{ user.email }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">New Password:</label>
+                <input type="password" id="password" name="password">
+                <small>Leave empty to keep your current password</small>
+            </div>
+
+            <button type="submit" class="btn-save">Save Changes</button>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript to hide the success message after 2 minutes (120000 milliseconds)
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const message = document.getElementById('success-message');
+            if (message) {
+                setTimeout(function() {
+                    message.style.display = 'none';
+                }, 120000); // 120000 milliseconds = 2 minutes
+            }
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Disaster Alert System</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        /* Base Styles for the entire page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h1, h2, h3 {
+            color: #2980b9;
+            margin-bottom: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        a:hover {
+            color: #3498db;
+        }
+
+        /* Menu Styles */
+        .menu-container {
+            background-color: #2980b9;
+            color: white;
+            padding: 15px;
+        }
+
+        .menu-icon {
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        .menu-items {
+            display: none;
+            margin-top: 15px;
+        }
+
+        .menu-items a {
+            display: block;
+            color: white;
+            padding: 10px;
+            text-transform: uppercase;
+        }
+
+        .menu-items a:hover {
+            background-color: #2980b9;
+        }
+
+        .menu-items ul {
+            padding-left: 20px;
+        }
+
+        .menu-items a i {
+            margin-right: 10px;
+        }
+
+        /* Main Content */
+        main {
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            font-size: 28px;
+        }
+
+        p {
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        /* Basic Styling for Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #2980b9;
+    color: white;
+}
+
+.navbar-left, .navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-btn {
+    text-decoration: none;
+    color: white;
+    padding: 10px 20px;
+    margin-left: 10px;
+    font-size: 16px;
+}
+
+.navbar-btn:hover {
+    background-color: #2980b9;
+    border-radius: 5px;
+}
+
+.navbar-right {
+    gap: 15px;
+}
+
+        /* Footer */
+        footer {
+            background-color: #2980b9;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        /* About Page */
+        .about-page {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-page h2 {
+            font-size: 32px;
+            color: #2980b9;
+        }
+
+        .about-page p {
+            font-size: 18px;
+        }
+
+        /* Contact Page */
+        .contact-page {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-page h2 {
+            font-size: 32px;
+            color: #e74c3c;
+        }
+
+        .contact-page form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-page input, .contact-page textarea {
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        .contact-page button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .contact-page button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Service Page */
+        .service-page {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .service-page h2 {
+            font-size: 32px;
+            color: #27ae60;
+        }
+
+        .service-page ul {
+            list-style: none;
+            padding-left: 20px;
+        }
+
+        .service-page li {
+            margin: 10px 0;
+        }
+
+        .service-page li::before {
+            content: "\2022";
+            color: #27ae60;
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        /* Alerts Page */
+        .alerts-page {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .alerts-page h2 {
+            font-size: 32px;
+            color: #e67e22;
+        }
+
+        .alerts-page ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .alerts-page li {
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .alerts-page li.alert-important {
+            background-color: #f1c40f;
+            color: #fff;
+        }
+
+        .alerts-page li.alert-normal {
+            background-color: #2ecc71;
+            color: #fff;
+        }
+        .alert-item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .alert-item strong {
+    color: #000;
+  }
+
+  .alert-item p {
+    margin: 10px 0;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .alert-item small {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #7f8c8d;
+  }
+  /* Define different colors based on severity */
+.low-severity {
+    background-color: white;
+    color: black;
+}
+
+.moderate-severity {
+    background-color: lightyellow;
+    color: orange;
+}
+
+.high-severity {
+    background-color: lightcoral;
+    color: darkred;
+}
+
+.severe-severity {
+    background-color: red;
+    color: white;
+}
+
+.extreme-severity {
+    background-color: darkred;
+    color: yellow;
+}
+
+/* Additional styles for alert items */
+.alert-item {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+  /* Profile Styling */
+  .profile-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-container .form-group {
+            margin-bottom: 15px;
+        }
+
+        .profile-container label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .profile-container input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .profile-container .btn-save {
+            background-color: #5c656b;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .profile-container .btn-save:hover {
+            background-color: #21618c;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <!-- Left-aligned Home button -->
+        <div class="navbar-left">
+            <a href="{% url 'users:home' %}" class="navbar-btn"><i class="bx bx-home"></i> Home</a>
+        </div>
+
+        <!-- Right-aligned menu items -->
+        <div class="navbar-right">
+            <a href="{% url 'users:contact' %}" class="navbar-btn">Contact</a>
+            <a href="{% url 'users:alert_list' %}" class="navbar-btn">Alerts</a>
+            <a href="{% url 'users:profile' %}"class="navbar-btn">Profile</a>
+            <a href="{% url 'users:logout' %}"><i class="bx bx-exit"></i> Exit</a>
+        </div>
+    </nav>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <!-- Footer -->
+    </footer>
+
+    <script>
+        // You can keep the toggleMenu function if needed for other purposes, or remove it
+    </script>
+</body>

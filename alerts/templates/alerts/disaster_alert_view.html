@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Détails de l'Alerte</title>
+</head>
+<body>
+    <h1>Détails de l'Alerte</h1>
+    <p>{{ alert.description }}</p>
+    <p>Type d'alerte : {{ alert.type }}</p>
+    <p>Lieu : {{ alert.location.name }}</p>
+    <p>Sévérité : {{ alert.severity }}</p>
+    <p>Date émise : {{ alert.date_issued }}</p>
+</body>
+</html>

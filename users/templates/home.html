@@ -1,0 +1,182 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collapsible Menu</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2980b9;
+            color: white;
+            padding: 10px 20px;
+        }
+
+        .navbar .navbar-left,
+        .navbar .navbar-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .navbar-left a,
+        .navbar .navbar-right a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar .navbar-left a:hover,
+        .navbar .navbar-right a:hover {
+            background-color: #21618c;
+        }
+
+        /* Content Section */
+        .content {
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        .content h2 {
+            font-size: 2em;
+            color: #000;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .content p {
+            font-size: 1.1em;
+            color: black;
+            text-align: center;
+        }
+
+        /* Carousel container */
+        .carousel-container {
+            display: flex;
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+        }
+
+        .carousel-wrapper {
+            display: flex;
+            transition: transform 1s ease-in-out;
+        }
+
+        .carousel-image {
+            width: 80%;
+            max-width: 300px;
+            height: auto;
+            margin: auto;
+            object-fit: cover;
+            display: none;
+        }
+
+        /* Alerts Section */
+        .alert {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 5px;
+            color: white;
+            font-size: 1em;
+        }
+
+        .alert-error {
+            background-color: #e74c3c;
+        }
+
+        .alert-warning {
+            background-color: #f39c12;
+        }
+
+        .alert-success {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="{% url 'users:home' %}"><i class="bx bx-home"></i> Home</a>
+        </div>
+        <div class="navbar-right">
+            <a href="{% url 'users:contact' %}">Contact</a>
+            <a href="{% url 'users:alert_list' %}">Alerts</a>
+            <a href="{% url 'users:profile' %}">Profile</a>
+            <a href="{% url 'users:logout' %}"><i class="bx bx-exit"></i> Exit</a>
+        </div>
+    </div>
+
+    <!-- Content Section -->
+    <div class="content" id="contentSection">
+        <h2>Welcome to the Disaster Alert System</h2>
+        <p>We helping you stay informed and safe during emergencies.</p>
+        <p>Our system sends alerts for various types of disasters, including earthquakes, floods, wildfires, and more. Stay tuned for timely updates!</p>
+        
+        <!-- Image Carousel -->
+        <div id="disasterImages" class="carousel-container">
+            <div class="carousel-wrapper">
+                <img src="https://images.pexels.com/photos/16105713/pexels-photo-16105713/free-photo-of-group-of-paramedics-walking-through-a-demolished-city.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Disaster 1" class="carousel-image">
+                <img src="https://images.pexels.com/photos/753619/pexels-photo-753619.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Disaster 2" class="carousel-image">
+                <img src="https://images.pexels.com/photos/12734151/pexels-photo-12734151.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Disaster 3" class="carousel-image">
+                <img src="https://images.pexels.com/photos/15823381/pexels-photo-15823381/free-photo-of-demolished-buildings-after-calamity.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Disaster 4" class="carousel-image">
+                <img src="https://images.pexels.com/photos/11477798/pexels-photo-11477798.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Disaster 5" class="carousel-image">
+                <img src="https://images.pexels.com/photos/7263811/pexels-photo-7263811.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Disaster 6" class="carousel-image">
+            </div>
+        </div>
+
+        <!-- Alerts Section -->
+        <div>
+            {% for alert in alerts %}
+                <div class="alert {% if alert.severity == 'High' %}alert-error{% elif alert.severity == 'Medium' %}alert-warning{% else %}alert-success{% endif %}">
+                    <h3>{{ alert.type|title }} Alert at {{ alert.location.name }}</h3>
+                    <p>{{ alert.description }}</p>
+                    <p><strong>Severity:</strong> {{ alert.severity }}</p>
+                    <p><strong>Date Issued:</strong> {{ alert.date_issued }}</p>
+                </div>
+            {% empty %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        const images = document.querySelectorAll('.carousel-image');
+        const totalImages = images.length;
+
+        function showNextImage() {
+            // Hide all images
+            images.forEach(image => image.style.display = 'none');
+
+            // Show the current image
+            images[currentIndex].style.display = 'block';
+
+            // Move to the next image
+            currentIndex = (currentIndex + 1) % totalImages;
+        }
+
+        // Initialize carousel
+        showNextImage();
+        setInterval(showNextImage, 3000);  // Change image every 3 seconds
+    </script>
+</body>
+</html>

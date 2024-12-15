@@ -1,0 +1,20 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h1>Alert List</h1>
+  
+  {% if alerts %}
+    <ul>
+      {% for alert in alerts %}
+        <li class="alert-item {% if alert.severity == 'Low' %}low-severity{% elif alert.severity == 'Moderate' %}moderate-severity{% elif alert.severity == 'High' %}high-severity{% elif alert.severity == 'Severe' %}severe-severity{% elif alert.severity == 'Extreme' %}extreme-severity{% endif %}">
+          <strong>{{ alert.type|upper }}</strong> at {{ alert.location.name }}<br>
+          <p>{{ alert.description }}</p>
+          <small>{{ alert.date_created|date:"M d, Y" }}</small>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No alerts available at the moment.</p>
+  {% endif %}
+  
+{% endblock %}
